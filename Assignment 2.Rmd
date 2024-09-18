@@ -1,0 +1,51 @@
+---
+title: "Assignment 2: R and SQL"
+author: "MD Asadul Islam"
+date: "`r Sys.Date()`"
+output: openintro::lab_report
+---
+
+### Part 1: Build a Table
+
+Movies: Rebel Ridge, The Deliverance, The Union, Incoming, Gemini Man.
+Person1 ratings: 5, 5, 5, 3, 4
+Person2 ratings: 3, 3, 4, 4, 5
+Person3 ratings: 4, 5, 4, 3, 3
+Person4 ratings: 5, 4, 5, 5, 4
+Person5 ratings: 3, 3, 3, 4, 2
+
+### Part 2: Store Data in SQL Database
+
+CREATE TABLE movie_ratings ( popular_movie VARCHAR(200) NULL, person1_rating INT NULL, person2_rating INT NULL, person3_rating INT NULL, person4_rating INT NULL, person5_rating INT NULL);
+
+INSERT INTO movie_ratings(popular_movie, person1_rating, person2_rating, person3_rating, person4_rating, person5_rating) 
+    -> VALUES
+    -> ('Rebel Ridge', 5, 3, 4, 5, 3), 
+    -> ('The Deliverance', 5, 3, 5, 4, 3), 
+    -> ('The Union', 5, 4, 4, 5, 3), 
+    -> ('Incoming', 3, 4, 3, 5, 4), 
+    -> ('Gemini Man', 4, 5, 3, 4, 2);
+
+
+### Part 3: Transfer Data from SQL database to R dataframe
+
+```{r load-packages and data}
+install.packages("RMySQL", type = "https://cran.r-project.org/src/contrib/RMySQL_0.10.28.tar.gz")
+install.packages("RMariaDB")
+library(RMySQL)
+mysqlconnection = dbConnect(RMySQL::MySQL(),
+                            dbname='movie_reviews',
+                            host='localhost',
+                            port=3306,
+                            user='root',
+                            password='root')
+
+
+
+```
+
+### Part 4: Missing Data Strategy
+
+My approach to missing data is to remove the missing data to perform calculations such as mean and median. I decided to take this approach because it allows for straightforward calculations without the complications introduced by missing values. Removing missing data ensures that the dataset is clean and prevents errors that could arise from attempting calculations on incomplete data. This method is particularly useful for maintaining the integrity of the dataset and ensuring accurate results in subsequent analyses, such as implementing a recommender system later in the course.
+...
+
